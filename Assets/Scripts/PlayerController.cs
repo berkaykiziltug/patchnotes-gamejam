@@ -122,24 +122,22 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        int randomJumpForce = UnityEngine.Random.Range(4, 15);
+        int randomJumpForce = UnityEngine.Random.Range(6, 16);
         float staminaCost = 0;
-        switch (randomJumpForce)
-        {
-            case 4: staminaCost = 5; break;
-            case 5: staminaCost = 10; break;
-            case 6: staminaCost = 15; break;
-            case 7: staminaCost = 20; break;
-            case 8: staminaCost = 25; break;
-            case 9: staminaCost = 30; break;
-            case 10: staminaCost = 35; break;
-            case 11: staminaCost = 40; break;
-            case 12: staminaCost = 45; break;
-            case 13: staminaCost = 50; break;
-            case 14: staminaCost = 55; break;
-            case 15: staminaCost = 60; break;
-            default: staminaCost = 10; break;
-        }
+     switch (randomJumpForce)
+    {
+        case 6: staminaCost = 5; break;
+        case 7: staminaCost = 10; break;
+        case 8: staminaCost = 15; break;
+        case 9: staminaCost = 20; break;
+        case 10: staminaCost = 25; break;
+        case 11: staminaCost = 30; break;
+        case 12: staminaCost = 35; break;
+        case 13: staminaCost = 40; break;
+        case 14: staminaCost = 45; break;
+        case 15: staminaCost = 50; break;
+        default: staminaCost = 15; break; 
+    }
         Debug.Log($"Stamina cost is {staminaCost}");
         rb.AddForce(new Vector3(0, randomJumpForce, 0), ForceMode.Impulse);
         canJump = false;
@@ -151,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
     private void AddRotation()
     {
-        float randomRotateForce = UnityEngine.Random.Range(.5f, .8f);
+        float randomRotateForce = UnityEngine.Random.Range(.5f, 1f);
         rb.AddTorque(new Vector3(randomRotateForce, 0, 0), ForceMode.Impulse);
     }
     private void AddForwardForce()
