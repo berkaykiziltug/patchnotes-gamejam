@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Unity.Mathematics;
@@ -21,10 +22,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float stamina = 250;
     [SerializeField] private Slider staminaSlider;
-    [SerializeField] private float staminaRegenRate = 30f;
+    [SerializeField] private float normalStaminaRegenRate = 30f;
 
+    [SerializeField] private float increasedStaminaRegenRate = 40f;
     private bool hasStamina => stamina > 20;
-
+    private int maxJumps = 2;
+    private int jumpsLeft;
 
 
     private bool isRegenerating;
@@ -40,7 +43,8 @@ public class PlayerController : MonoBehaviour
         staminaSlider.minValue = 0f;
         staminaSlider.maxValue = 250f;
         staminaSlider.value = stamina;
-        // groundDetectionCollider = GetComponent<SphereCollider>();
+        // groundDetectionCollider = GetComponent<SphereCollider>();\
+        jumpsLeft = maxJumps;
     }
 
 
@@ -50,6 +54,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            jumpsLeft = maxJumps;
         }
     }
 
@@ -67,34 +72,41 @@ public class PlayerController : MonoBehaviour
         // Vector3 rayOrigin = transform.position + Vector3.up * 0.3f; //
         // isGrounded = Physics.Raycast(rayOrigin, Vector3.down, groundCheckDistance, groundLayer);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && stamina >= 20f && !isRegenerating)
+        if (Input.GetKeyDown(KeyCode.Space) && stamina >= 20f && jumpsLeft > 0)
         {
             Debug.Log("Jumping");
             canJump = true;
+            
         }
-        if (stamina <= 20f && !isRegenerating)
+        else if (stamina < 20f)
         {
-        isRegenerating = true;
-        canJump = false;
-        StartCoroutine(RegenerateStamina());
+            canJump = false;
         }
 
-       
-    }
-    private IEnumerator RegenerateStamina()
-    {
-        yield return new WaitForSeconds(5f);
+        float currentRegenRate = (stamina <= staminaSlider.minValue) ? increasedStaminaRegenRate : normalStaminaRegenRate;
 
-        while (stamina < staminaSlider.maxValue)
+        if (stamina <= staminaSlider.maxValue)
         {
-            stamina += staminaRegenRate * Time.deltaTime;
+            stamina += currentRegenRate * Time.deltaTime;
             stamina = Mathf.Min(stamina, staminaSlider.maxValue);
             UpdateStaminaSlider(stamina);
-            yield return null;
         }
-        isRegenerating = false;
-        // canJump = true;
+    
     }
+    // private IEnumerator RegenerateStamina()
+    // {
+    //     yield return new WaitForSeconds(5f);
+
+    //     while (stamina < staminaSlider.maxValue)
+    //     {
+    //         stamina += staminaRegenRate * Time.deltaTime;
+    //         stamina = Mathf.Min(stamina, staminaSlider.maxValue);
+    //         UpdateStaminaSlider(stamina);
+    //         yield return null;
+    //     }
+    //     isRegenerating = false;
+    //     // canJump = true;
+    // }
 
 
     void FixedUpdate()
@@ -110,19 +122,36 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        float randomJumpForce = UnityEngine.Random.Range(4, 15);
-        float staminaCost = Mathf.Lerp(4, 15, (randomJumpForce - 4) / (15 - 4));
+        int randomJumpForce = UnityEngine.Random.Range(4, 15);
+        float staminaCost = 0;
+        switch (randomJumpForce)
+        {
+            case 4: staminaCost = 5; break;
+            case 5: staminaCost = 10; break;
+            case 6: staminaCost = 15; break;
+            case 7: staminaCost = 20; break;
+            case 8: staminaCost = 25; break;
+            case 9: staminaCost = 30; break;
+            case 10: staminaCost = 35; break;
+            case 11: staminaCost = 40; break;
+            case 12: staminaCost = 45; break;
+            case 13: staminaCost = 50; break;
+            case 14: staminaCost = 55; break;
+            case 15: staminaCost = 60; break;
+            default: staminaCost = 10; break;
+        }
         Debug.Log($"Stamina cost is {staminaCost}");
         rb.AddForce(new Vector3(0, randomJumpForce, 0), ForceMode.Impulse);
         canJump = false;
         isGrounded = false;
+        jumpsLeft--;
         stamina = Mathf.Max(0, stamina - staminaCost);
         UpdateStaminaSlider(stamina);
     }
 
     private void AddRotation()
     {
-        float randomRotateForce = UnityEngine.Random.Range(1, 3);
+        float randomRotateForce = UnityEngine.Random.Range(.5f, .8f);
         rb.AddTorque(new Vector3(randomRotateForce, 0, 0), ForceMode.Impulse);
     }
     private void AddForwardForce()
