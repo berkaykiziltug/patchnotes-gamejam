@@ -32528,7 +32528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardSpeed: 5
   jumpHeight: 2
-  jumpDuration: 0.5
+  jumpDuration: 1
   jumpPower: 3
   isGrounded: 0
   groundLayer:
