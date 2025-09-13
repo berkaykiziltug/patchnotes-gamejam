@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building_House_02_color02 (2) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8c3b216cc2b6dc04496d15009bc913cd, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8c3b216cc2b6dc04496d15009bc913cd, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8c3b216cc2b6dc04496d15009bc913cd, type: 3}
       propertyPath: m_RootOrder
       value: 810
@@ -58,9 +66,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 8c3b216cc2b6dc04496d15009bc913cd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3416681021153128237}
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: 8c3b216cc2b6dc04496d15009bc913cd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4589379636108401327}
   m_SourcePrefab: {fileID: 100100000, guid: 8c3b216cc2b6dc04496d15009bc913cd, type: 3}
 --- !u!1 &6474974941344181782 stripped
 GameObject:
@@ -109,15 +114,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.497074, y: 6.157994, z: 7.090317}
   m_Center: {x: -6.4662895, y: 3.0789502, z: 1.3845588}
---- !u!114 &4589379636108401327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6474974941344181782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6762601faa0e6c94997ba7d0b4b21986, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
