@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private bool canJump;
     [SerializeField] private Transform playerStartPosition;
+
+    [SerializeField] private Transform playerStartPosition2;
     
     [SerializeField] private bool isGrounded;
     [SerializeField] public bool canMove;
@@ -62,7 +65,7 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             Debug.Log("LOSE!");
             StartCoroutine(ResetPlayerPosition());
-            
+
         }
     }
 
@@ -122,11 +125,16 @@ public class PlayerController : MonoBehaviour
     {
         if (!canMove) return;
 
-        if (Input.GetKeyDown(KeyCode.Space) && stamina >= 20f && jumpsLeft > 0 )
+        if (GameManager.isSecondPhase)
+        {
+            playerStartPosition = playerStartPosition2;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && stamina >= 20f && jumpsLeft > 0)
         {
             Debug.Log("Jumping");
             canJump = true;
-            
+
         }
         else if (stamina < 20f)
         {

@@ -111,7 +111,7 @@ public class FirstCheckpointTransition : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
-            
+
             float currentValue = Mathf.Lerp(startValue, endValue, Mathf.SmoothStep(0f, 1f, t));
 
             mosaicMaterial.SetFloat("_Resolution", currentValue);
@@ -125,5 +125,6 @@ public class FirstCheckpointTransition : MonoBehaviour
         yield return new WaitForSeconds(1f);
         player.canMove = true;
         playerRigidbody.isKinematic = false;
+        GameManager.isSecondPhase = true;
     }
 }
