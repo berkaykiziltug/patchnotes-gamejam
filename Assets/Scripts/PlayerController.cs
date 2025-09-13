@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform playerStartPosition;
     
     [SerializeField] private bool isGrounded;
-    [SerializeField] private bool canMove;
+    [SerializeField] public bool canMove;
 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance;
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float increasedStaminaRegenRate = 40f;
     private bool hasStamina => stamina > 20;
     private int maxJumps = 2;
-    private int jumpsLeft;
+    public int jumpsLeft;
 
     private Vector3 scale;
     private bool isRegenerating;
