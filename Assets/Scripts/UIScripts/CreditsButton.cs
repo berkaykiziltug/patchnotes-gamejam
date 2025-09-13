@@ -18,4 +18,12 @@ public class CreditsButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         creditsText.color = Color.white;
     }
 
+      public void SetColorToWhite()
+    {
+        if (creditsText != null)
+        {
+            creditsText.color = Color.white;
+        }
+    }
+
 }

@@ -8,9 +8,10 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public static PlayerController Instance;
 
     [SerializeField] private AudioClip[] jumpClips;
+    [SerializeField] private GameObject mainMenu;
     [SerializeField] private AudioSource playerAudioSource;
     private Rigidbody rb;
     private bool canJump;
@@ -42,6 +43,14 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
         rb = GetComponent<Rigidbody>();
         staminaSlider.minValue = 0f;
         staminaSlider.maxValue = 250f;
@@ -50,6 +59,7 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         scale = transform.localScale;
     }
+
 
 
     private void OnCollisionEnter(Collision collision)
@@ -148,6 +158,11 @@ public class PlayerController : MonoBehaviour
             stamina += currentRegenRate * Time.deltaTime;
             stamina = Mathf.Min(stamina, staminaSlider.maxValue);
             UpdateStaminaSlider(stamina);
+        }
+
+        if (canMove && Input.GetKeyDown(KeyCode.Tab))
+        {
+            mainMenu.SetActive(true);
         }
     
     }

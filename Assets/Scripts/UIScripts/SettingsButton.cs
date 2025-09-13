@@ -18,4 +18,12 @@ public class SettingsButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         settingsText.color = Color.white;
     }
 
+      public void SetColorToWhite()
+    {
+        if (settingsText != null)
+        {
+            settingsText.color = Color.white;
+        }
+    }
+
 }

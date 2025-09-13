@@ -17,5 +17,12 @@ public class BackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         backText.color = Color.white;
     }
+     public void SetColorToWhite()
+    {
+        if (backText != null)
+        {
+            backText.color = Color.white;
+        }
+    }
 
 }

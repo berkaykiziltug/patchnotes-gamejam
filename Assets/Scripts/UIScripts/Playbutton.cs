@@ -18,4 +18,12 @@ public class Playbutton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         playText.color = Color.white;
     }
 
+    public void SetColorToWhite()
+    {
+        if (playText != null)
+        {
+            playText.color = Color.white;
+        }
+    }
+
 }
