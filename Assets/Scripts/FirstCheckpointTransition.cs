@@ -42,7 +42,7 @@ public class FirstCheckpointTransition : MonoBehaviour
     private IEnumerator TeleportPlayer()
     {
         player.canMove = false;
-        // get all particle systems on this object and children
+        
         ParticleSystem[] systems = parentPs.GetComponentsInChildren<ParticleSystem>();
 
         foreach (var ps in systems)
@@ -54,15 +54,15 @@ public class FirstCheckpointTransition : MonoBehaviour
             GradientColorKey[] colorKeys = grad.colorKeys;
             GradientAlphaKey[] alphaKeys = grad.alphaKeys;
 
-            // clamp index so we don't go out of bounds
+            
             int index = Mathf.Clamp(keyIndexToChange, 0, colorKeys.Length - 1);
             colorKeys[index].color = newColorGreen;
 
-            // create a new gradient with the modified keys
+            
             Gradient newGrad = new Gradient();
             newGrad.SetKeys(colorKeys, alphaKeys);
 
-            // assign back
+            
             col.color = new ParticleSystem.MinMaxGradient(newGrad);
         }
         yield return new WaitForSeconds(.8f);
@@ -78,7 +78,7 @@ public class FirstCheckpointTransition : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
 
-            // Smooth interpolation
+            //Interpolate here
             float currentValue = Mathf.Lerp(startValue, endValue, Mathf.SmoothStep(0f, 1f, t));
 
             // Apply to shader
