@@ -8,14 +8,14 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 
-    [Header("Movement Settings")]
-    [SerializeField] private float forwardSpeed = 5f;
-    [SerializeField] private float jumpHeight = 2f;
-    [SerializeField] private float jumpDuration = 0.5f;
-    [SerializeField] float jumpPower;
+    
+    
     private Rigidbody rb;
     private bool canJump;
+    [SerializeField] private Transform playerStartPosition;
+    
     [SerializeField] private bool isGrounded;
+    [SerializeField] private bool canMove;
 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private int maxJumps = 2;
     private int jumpsLeft;
 
-
+    private Vector3 scale;
     private bool isRegenerating;
 
     //  private SphereCollider groundDetectionCollider;
@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
         staminaSlider.value = stamina;
         // groundDetectionCollider = GetComponent<SphereCollider>();\
         jumpsLeft = maxJumps;
+        canMove = true;
+        scale = transform.localScale;
     }
 
 
@@ -56,6 +58,13 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             jumpsLeft = maxJumps;
         }
+        if (collision.gameObject.CompareTag("Lava"))
+        {
+            canMove = false;
+            Debug.Log("LOSE!");
+            StartCoroutine(ResetPlayerPosition());
+            
+        }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -66,13 +75,55 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private IEnumerator ResetPlayerPosition()
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
+        yield return new WaitForSeconds(1.5f);
+        float elapsedTime = 0f;
+        float duration = .2f;
+        Vector3 startScale = transform.localScale;
+        Vector3 targetScale = Vector3.zero;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(startScale, targetScale, elapsedTime / duration);
+            yield return null;
+        }
+        startScale = targetScale;
+
+        transform.position = playerStartPosition.position;
+        transform.rotation = Quaternion.identity;
+        StartCoroutine(ReEnableRigidBody());
+        
+    }
+
+    private IEnumerator ReEnableRigidBody()
+    {
+        yield return new WaitForSeconds(.5f);
+        float elapsedTime = 0f;
+        float duration = .2f;
+        Vector3 startScale = transform.localScale; // this is the shrinked scale;
+        Vector3 targetScale = scale; // this is the full scale before shrinking;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(startScale, targetScale, elapsedTime / duration);
+            yield return null;
+        }
+        startScale = targetScale;
+        rb.isKinematic = false;
+        canMove = true;
+
+    }
+
     // Update is called once per frame
     void Update()
     {
-        // Vector3 rayOrigin = transform.position + Vector3.up * 0.3f; //
-        // isGrounded = Physics.Raycast(rayOrigin, Vector3.down, groundCheckDistance, groundLayer);
+        if (!canMove) return;
 
-        if (Input.GetKeyDown(KeyCode.Space) && stamina >= 20f && jumpsLeft > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && stamina >= 20f && jumpsLeft > 0 )
         {
             Debug.Log("Jumping");
             canJump = true;
@@ -154,7 +205,7 @@ public class PlayerController : MonoBehaviour
     }
     private void AddForwardForce()
     {
-        float randomForwardForce = UnityEngine.Random.Range(1, 8);
+        float randomForwardForce = UnityEngine.Random.Range(6, 9);
         rb.AddForce(new Vector3(0, 0, randomForwardForce), ForceMode.Impulse);
     }
 
