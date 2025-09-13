@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 scale;
     private bool isRegenerating;
 
-    //  private SphereCollider groundDetectionCollider;
+    
 
 
 
@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
         staminaSlider.minValue = 0f;
         staminaSlider.maxValue = 250f;
         staminaSlider.value = stamina;
-        // groundDetectionCollider = GetComponent<SphereCollider>();\
         jumpsLeft = maxJumps;
         canMove = true;
         scale = transform.localScale;
@@ -103,7 +102,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         float elapsedTime = 0f;
-        float duration = .2f;
+        float duration = .2f; //Can maybe crank this up a bit for slower reappearance.
         Vector3 startScale = transform.localScale; // this is the shrinked scale;
         Vector3 targetScale = scale; // this is the full scale before shrinking;
         while (elapsedTime < duration)
