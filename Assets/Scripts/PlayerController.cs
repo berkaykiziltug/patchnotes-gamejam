@@ -9,8 +9,9 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 
-    
-    
+
+    [SerializeField] private AudioClip[] jumpClips;
+    [SerializeField] private AudioSource playerAudioSource;
     private Rigidbody rb;
     private bool canJump;
     [SerializeField] private Transform playerStartPosition;
@@ -35,7 +36,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 scale;
     private bool isRegenerating;
 
-    
 
 
 
@@ -196,6 +196,12 @@ public class PlayerController : MonoBehaviour
         case 15: staminaCost = 50; break;
         default: staminaCost = 15; break; 
     }
+    //JUMPING SOUNDS.
+    if (jumpClips.Length > 0 && playerAudioSource != null)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, jumpClips.Length);
+            playerAudioSource.PlayOneShot(jumpClips[randomIndex]);
+        }
         Debug.Log($"Stamina cost is {staminaCost}");
         rb.AddForce(new Vector3(0, randomJumpForce, 0), ForceMode.Impulse);
         canJump = false;

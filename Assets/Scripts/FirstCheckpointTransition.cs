@@ -96,11 +96,11 @@ public class FirstCheckpointTransition : MonoBehaviour
         playerRigidbody.angularVelocity = Vector3.zero;
         yield return null;
         playerRigidbody.isKinematic = true;
-        yield return new WaitForSeconds(1);
-
-
         player.transform.position = playerStartPosition2.transform.position;
         player.transform.rotation = Quaternion.identity;
+        // yield return new WaitForSeconds(1);
+
+
         yield return new WaitForSeconds(2f);
 
         elapsedTime = 0f;
