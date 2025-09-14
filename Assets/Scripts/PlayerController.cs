@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
 
+
+    [SerializeField] private GameObject playerUIGO;
     [SerializeField] private AudioClip[] jumpClips;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private AudioSource playerAudioSource;
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             jumpsLeft = maxJumps;
+            GameManager.Instance.canOpenMenu = true;
         }
         if (collision.gameObject.CompareTag("Lava"))
         {
@@ -144,6 +147,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Jumping");
             canJump = true;
+            GameManager.Instance.canOpenMenu = false;
 
         }
         else if (stamina < 20f)
@@ -160,9 +164,12 @@ public class PlayerController : MonoBehaviour
             UpdateStaminaSlider(stamina);
         }
 
-        if (canMove && Input.GetKeyDown(KeyCode.Tab))
+        if (!GameManager.Instance.canOpenMenu) return;
+
+        if (canMove && Input.GetKeyDown(KeyCode.Tab) && GameManager.Instance.canOpenMenu)
         {
             mainMenu.SetActive(true);
+            playerUIGO.SetActive(false);
         }
     
     }
@@ -212,10 +219,10 @@ public class PlayerController : MonoBehaviour
         default: staminaCost = 15; break; 
     }
     //JUMPING SOUNDS.
-    if (jumpClips.Length > 0 && playerAudioSource != null)
+    if (jumpClips.Length > 0)
         {
             int randomIndex = UnityEngine.Random.Range(0, jumpClips.Length);
-            playerAudioSource.PlayOneShot(jumpClips[randomIndex]);
+            AudioManager.Instance.PlaySFX(jumpClips[randomIndex]);
         }
         Debug.Log($"Stamina cost is {staminaCost}");
         rb.AddForce(new Vector3(0, randomJumpForce, 0), ForceMode.Impulse);

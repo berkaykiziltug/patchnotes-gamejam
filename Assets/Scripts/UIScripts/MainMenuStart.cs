@@ -3,6 +3,7 @@ using UnityEngine;
 public class MainMenuStart : MonoBehaviour
 {
 
+    [SerializeField] private GameObject playerUIGO;
     void OnEnable()
     {
         PlayerController.Instance.canMove = false;
@@ -10,7 +11,7 @@ public class MainMenuStart : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -24,5 +25,6 @@ public class MainMenuStart : MonoBehaviour
     void OnDisable()
     {
         PlayerController.Instance.canMove = true;
+        playerUIGO.SetActive(true);
     }
 }

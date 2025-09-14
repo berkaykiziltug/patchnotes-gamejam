@@ -1,13 +1,17 @@
+
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public bool canOpenMenu;
     public static bool isSecondPhase;
+    [SerializeField] private GameObject playerUIGO;
+    [SerializeField] private GameObject menuGO;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-         if (Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
@@ -16,6 +20,10 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         isSecondPhase = false;
+        canOpenMenu = true;
+
+        playerUIGO.SetActive(false);
+        menuGO.SetActive(true);
        
     }
 
