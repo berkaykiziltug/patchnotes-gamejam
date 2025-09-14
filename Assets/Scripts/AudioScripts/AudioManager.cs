@@ -49,6 +49,15 @@ public class AudioManager : MonoBehaviour
         if (clip != null)
             sfxSource.PlayOneShot(clip);
     }
+    public void PlaySFX(AudioClip clip, float minPitch, float maxPitch)
+    {
+        if (clip != null)
+        {
+            sfxSource.pitch = Random.Range(minPitch, maxPitch);
+            sfxSource.clip = clip;
+            sfxSource.Play();
+        }
+    }
 
     public void PlayMusic(AudioClip clip)
     {
@@ -58,9 +67,14 @@ public class AudioManager : MonoBehaviour
             musicSource.Play();
         }
     }
-    
+
     public void StopMusic()
     {
         musicSource.Stop();
+    }
+
+    public void StopSFX()
+    {
+        sfxSource.Stop();
     }
 }

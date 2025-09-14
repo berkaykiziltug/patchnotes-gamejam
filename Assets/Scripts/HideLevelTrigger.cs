@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class HideLevelTrigger : MonoBehaviour
@@ -6,6 +7,9 @@ public class HideLevelTrigger : MonoBehaviour
     private bool canHideLevel;
     [SerializeField] private GameObject firstLevel;
     [SerializeField] private GameObject secondLevel;
+     [SerializeField] private GameObject mosaicGameObject;
+
+    [SerializeField] private Material mosaicMaterial;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,7 +31,9 @@ public class HideLevelTrigger : MonoBehaviour
             firstLevel.gameObject.SetActive(false);
             secondLevel.gameObject.SetActive(true);
             GameManager.isThirdPhase = true;
-
+            
         }
     }
+
+   
 }

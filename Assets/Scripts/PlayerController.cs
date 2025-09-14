@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Unity.Cinemachine;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +10,8 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
+
+    [SerializeField] CinemachineImpulseSource impulseSource;
 
     [SerializeField] private AudioClip groundHitClip;
     [SerializeField] private GameObject particlesPrefab;
@@ -83,7 +86,6 @@ public class PlayerController : MonoBehaviour
             jumpsLeft = maxJumps;
             GameManager.Instance.canOpenMenu = true;
             
-            
         }
         if (collision.gameObject.CompareTag("Lava"))
         {
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("LOSE!");
             StartCoroutine(ResetPlayerPosition());
             AudioManager.Instance.PlaySFX(groundHitClip);
-
+            ScreenShake();
         }
     }
 
@@ -100,8 +102,12 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
-            
         }
+    }
+
+    public void ScreenShake()
+    {
+        impulseSource.GenerateImpulse();
     }
 
     private IEnumerator ResetPlayerPosition()
@@ -109,7 +115,7 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(.6f);
         float elapsedTime = 0f;
         float duration = .2f;
         Vector3 startScale = transform.localScale;
@@ -125,12 +131,12 @@ public class PlayerController : MonoBehaviour
         transform.position = playerStartPosition.position;
         transform.rotation = Quaternion.identity;
         StartCoroutine(ReEnableRigidBody());
-        
+
     }
 
     private IEnumerator ReEnableRigidBody()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
         float elapsedTime = 0f;
         float duration = .2f; //Can maybe crank this up a bit for slower reappearance.
         Vector3 startScale = transform.localScale; // this is the shrinked scale;
@@ -234,17 +240,17 @@ public class PlayerController : MonoBehaviour
         float staminaCost = 0;
      switch (randomJumpForce)
     {
-        case 6: staminaCost = 5; break;
-        case 7: staminaCost = 10; break;
-        case 8: staminaCost = 15; break;
-        case 9: staminaCost = 20; break;
-        case 10: staminaCost = 25; break;
-        case 11: staminaCost = 30; break;
-        case 12: staminaCost = 35; break;
-        case 13: staminaCost = 40; break;
-        case 14: staminaCost = 45; break;
-        case 15: staminaCost = 50; break;
-        default: staminaCost = 15; break; 
+        case 6: staminaCost = 10; break;
+        case 7: staminaCost = 20; break;
+        case 8: staminaCost = 30; break;
+        case 9: staminaCost = 40; break;
+        case 10: staminaCost = 50; break;
+        case 11: staminaCost = 60; break;
+        case 12: staminaCost = 70; break;
+        case 13: staminaCost = 80; break;
+        case 14: staminaCost = 90; break;
+        case 15: staminaCost = 100; break;
+        default: staminaCost = 110; break; 
     }
     //JUMPING SOUNDS.
     if (jumpClips.Length > 0)
