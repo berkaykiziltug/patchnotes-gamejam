@@ -17,70 +17,39 @@ public class Shrink : MonoBehaviour
     {
 
     }
-
-    // private IEnumerator Shrink()
-    // {
-    //     yield return null;
-    //     float duration = .3f;
-    //     float elapsedTime = 0;
-    //     Vector3 startScale = transform.localScale;
-    //     Vector3 endScale = new Vector3(.5f, .5f, .5f);
-
-
-    //     while (elapsedTime < duration)
-    //     {
-    //         elapsedTime += Time.deltaTime;
-    //         yield return null;
-    //         transform.localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
-    //     }
-    //     startScale = endScale;
-
-    //     yield return null;
-    //     StartCoroutine(Enlarge());
-
-    // }
-
-    // private IEnumerator Enlarge()
-    // {
-    //     yield return null;
-    //     float duration = .3f;
-    //     float elapsedTime = 0;
-    //     Vector3 startScale = new Vector3(.5f, .5f, .5f);
-    //     Vector3 endScale = defaultScale;
-
-    //     while (elapsedTime < duration)
-    //     {
-    //         elapsedTime += Time.deltaTime;
-    //         yield return null;
-    //         transform.localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
-    //     }
-    //     startScale = endScale;
-
-    // }
     private IEnumerator ShrinkAndEnlargeLoop()
 {
     Vector3 smallScale = new Vector3(.5f, .5f, .5f);
 
     while (true)
     {
-        // Shrink
-        yield return ScaleOverTime(transform.localScale, smallScale, 0.3f);
+         
+            float waitBeforeShrink = Random.Range(10f, 15f); 
+            yield return new WaitForSeconds(waitBeforeShrink);
 
-        // Enlarge
-        yield return ScaleOverTime(transform.localScale, defaultScale, 0.3f);
+            // Shrink
+            float shrinkDuration = Random.Range(0.2f, 1f); // random shrink speed
+            yield return ScaleOverTime(transform.localScale, smallScale, shrinkDuration);
+            
+            float waitBeforeEnlarge = Random.Range(2f, 10f);
+            yield return new WaitForSeconds(waitBeforeEnlarge);
+
+            // Enlarge
+            float enlargeDuration = Random.Range(0.2f, 1f); //Random enlarge speed.
+            yield return ScaleOverTime(transform.localScale, defaultScale, enlargeDuration);
     }
 }
 
-private IEnumerator ScaleOverTime(Vector3 startScale, Vector3 endScale, float duration)
-{
-    float elapsedTime = 0f;
-
-    while (elapsedTime < duration)
+    private IEnumerator ScaleOverTime(Vector3 startScale, Vector3 endScale, float duration)
     {
-        elapsedTime += Time.deltaTime;
-        transform.localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
-        yield return null;
-    }
-}
+        float elapsedTime = 0f;
 
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
+            yield return null;
+        }
+        transform.localScale = endScale;
+}
 }

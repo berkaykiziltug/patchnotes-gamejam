@@ -26,6 +26,7 @@ public class HideLevelTrigger : MonoBehaviour
             canHideLevel = false;
             firstLevel.gameObject.SetActive(false);
             secondLevel.gameObject.SetActive(true);
+            GameManager.isThirdPhase = true;
 
         }
     }

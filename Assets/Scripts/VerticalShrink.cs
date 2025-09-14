@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class HorizontalShrink : MonoBehaviour
+public class VerticalShrink : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,23 +17,21 @@ public class HorizontalShrink : MonoBehaviour
 
     private IEnumerator ShrinkAndEnlargeLoop()
     {
-        Vector3 smallScale = new Vector3(transform.localScale.x, transform.localScale.y, .2f);
+        Vector3 smallScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
         Vector3 defaultScale = transform.localScale;
 
         while (true)
         {
-            float waitBeforeShrink = Random.Range(5f, 10f);
+            float waitBeforeShrink = Random.Range(2f, 4);
             yield return new WaitForSeconds(waitBeforeShrink);
             // Shrink
-             float shrinkDuration = Random.Range(0.2f, 1f); // random shrink speed
-            yield return ScaleOverTime(transform.localScale, smallScale, shrinkDuration);
+            yield return ScaleOverTime(transform.localScale, smallScale, waitBeforeShrink);
 
-            float waitBeforeEnlarge = Random.Range(2f, 10f);
+            float waitBeforeEnlarge = Random.Range(2f, .8f);
             yield return new WaitForSeconds(waitBeforeEnlarge);
 
             // Enlarge
-             float enlargeDuration = Random.Range(0.2f, 2f); //Random enlarge speed.
-            yield return ScaleOverTime(transform.localScale, defaultScale, enlargeDuration);
+            yield return ScaleOverTime(transform.localScale, defaultScale, waitBeforeEnlarge);
         }
         
 }

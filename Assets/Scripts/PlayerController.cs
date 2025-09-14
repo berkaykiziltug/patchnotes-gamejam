@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform playerStartPosition;
 
     [SerializeField] private Transform playerStartPosition2;
+
+    [SerializeField] private Transform playerStartPosition3;
     
     [SerializeField] private bool isGrounded;
     [SerializeField] public bool canMove;
@@ -150,10 +152,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!canMove) return;
 
-
         if (GameManager.isSecondPhase)
         {
             playerStartPosition = playerStartPosition2;
+        }
+        if ( GameManager.isSecondPhase&&GameManager.isThirdPhase)
+        {
+            playerStartPosition = playerStartPosition3;
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && stamina >= 20f && jumpsLeft > 0)

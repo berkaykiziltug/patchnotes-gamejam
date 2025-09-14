@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public bool canOpenMenu;
     public static bool isSecondPhase;
+    public static bool isThirdPhase;
     [SerializeField] private GameObject playerUIGO;
     [SerializeField] private GameObject menuGO;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         isSecondPhase = false;
+        isThirdPhase = false;
         canOpenMenu = true;
 
         playerUIGO.SetActive(false);
