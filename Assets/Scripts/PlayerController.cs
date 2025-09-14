@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
 
 
+    [SerializeField] private GameObject particlesPrefab;
+    [SerializeField] private GameObject particleSpawnPosition;
     [SerializeField] private GameObject playerUIGO;
     [SerializeField] private AudioClip[] jumpClips;
     [SerializeField] private GameObject mainMenu;
@@ -202,6 +204,12 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        Instantiate(
+        particlesPrefab,
+        particleSpawnPosition.transform.position,
+        Quaternion.identity
+);
+
         int randomJumpForce = UnityEngine.Random.Range(6, 16);
         float staminaCost = 0;
      switch (randomJumpForce)
