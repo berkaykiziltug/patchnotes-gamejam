@@ -6256,6 +6256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6762601faa0e6c94997ba7d0b4b21986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glitchClip: {fileID: 8300000, guid: e44a70b202832e148b301eb6077a48fc, type: 3}
   player: {fileID: 1582003308}
   playerRigidbody: {fileID: 1582003312}
   playerStartPosition2: {fileID: 1664571422}
@@ -9842,37 +9843,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
   m_PrefabInstance: {fileID: 1330165835}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &415133739
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 415133740}
-  m_Layer: 0
-  m_Name: ParticleSpawnPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &415133740
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415133739}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.024, y: 0.061, z: -0.319}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1582003311}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &415806040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25068,7 +25038,7 @@ Transform:
   m_GameObject: {fileID: 1011739850}
   serializedVersion: 2
   m_LocalRotation: {x: 0.10458833, y: -0.41194507, z: 0.04766366, w: 0.9039307}
-  m_LocalPosition: {x: 243.22, y: 8, z: 51.55}
+  m_LocalPosition: {x: 243.22, y: 3.58, z: -3.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45096,7 +45066,7 @@ Transform:
   m_GameObject: {fileID: 1704015169}
   serializedVersion: 2
   m_LocalRotation: {x: 0.10458833, y: -0.41194507, z: 0.04766366, w: 0.9039307}
-  m_LocalPosition: {x: 243.22, y: 8, z: 51.55}
+  m_LocalPosition: {x: 243.22, y: 3.58, z: -3.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57411,11 +57381,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5889379375534499200, guid: cc6d3bff3ec87d240b5ea616a80ff6ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.79
+      value: 2.37
       objectReference: {fileID: 0}
     - target: {fileID: 5889379375534499200, guid: cc6d3bff3ec87d240b5ea616a80ff6ac, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 53.28
+      value: -1.48
       objectReference: {fileID: 0}
     - target: {fileID: 5889379375534499200, guid: cc6d3bff3ec87d240b5ea616a80ff6ac, type: 3}
       propertyPath: m_LocalRotation.w
@@ -57458,10 +57428,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1060872197}
     - target: {fileID: 6299483047805515558, guid: cc6d3bff3ec87d240b5ea616a80ff6ac, type: 3}
-      propertyPath: particlesPrefab
-      value: 
-      objectReference: {fileID: 6140536091042911349, guid: edf74bcb0abdd334d8f49854a2ed421c, type: 3}
-    - target: {fileID: 6299483047805515558, guid: cc6d3bff3ec87d240b5ea616a80ff6ac, type: 3}
       propertyPath: playerStartPosition
       value: 
       objectReference: {fileID: 548034515}
@@ -57469,16 +57435,9 @@ PrefabInstance:
       propertyPath: playerStartPosition2
       value: 
       objectReference: {fileID: 616339373}
-    - target: {fileID: 6299483047805515558, guid: cc6d3bff3ec87d240b5ea616a80ff6ac, type: 3}
-      propertyPath: particleSpawnPosition
-      value: 
-      objectReference: {fileID: 415133739}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5889379375534499200, guid: cc6d3bff3ec87d240b5ea616a80ff6ac, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 415133740}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc6d3bff3ec87d240b5ea616a80ff6ac, type: 3}
 --- !u!1001 &3260472965208906862

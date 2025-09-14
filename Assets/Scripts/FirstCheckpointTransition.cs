@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FirstCheckpointTransition : MonoBehaviour
 {
+    [SerializeField] private AudioClip glitchClip;
     [SerializeField] PlayerController player;
 
     [SerializeField] private Rigidbody playerRigidbody;
@@ -41,7 +42,10 @@ public class FirstCheckpointTransition : MonoBehaviour
 
     private IEnumerator TeleportPlayer()
     {
+        AudioManager.Instance.PlaySFX(glitchClip);
         player.canMove = false;
+
+        
         
         ParticleSystem[] systems = parentPs.GetComponentsInChildren<ParticleSystem>();
 
@@ -65,7 +69,7 @@ public class FirstCheckpointTransition : MonoBehaviour
             
             col.color = new ParticleSystem.MinMaxGradient(newGrad);
         }
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(3.5f);
         parentPs.gameObject.SetActive(false);
         mosaicGameObject.SetActive(true);
 

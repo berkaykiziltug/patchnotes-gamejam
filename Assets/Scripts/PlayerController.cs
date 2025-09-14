@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
 
-
+    [SerializeField] private AudioClip groundHitClip;
     [SerializeField] private GameObject particlesPrefab;
     [SerializeField] private GameObject particleSpawnPosition;
     [SerializeField] private GameObject playerUIGO;
@@ -41,12 +41,18 @@ public class PlayerController : MonoBehaviour
     private Vector3 scale;
     private bool isRegenerating;
 
+    private bool isSecondGroundHit;
+
+    private bool canTriggerHitSound;
+
 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        isSecondGroundHit = false;
+        canTriggerHitSound = false;
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -69,17 +75,20 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && isSecondGroundHit)
         {
             isGrounded = true;
             jumpsLeft = maxJumps;
             GameManager.Instance.canOpenMenu = true;
+            
+            
         }
         if (collision.gameObject.CompareTag("Lava"))
         {
             canMove = false;
             Debug.Log("LOSE!");
             StartCoroutine(ResetPlayerPosition());
+            AudioManager.Instance.PlaySFX(groundHitClip);
 
         }
     }
@@ -89,6 +98,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+            
         }
     }
 
@@ -139,6 +149,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (!canMove) return;
+
 
         if (GameManager.isSecondPhase)
         {
@@ -198,17 +209,21 @@ public class PlayerController : MonoBehaviour
             Jump();
             AddRotation();
             AddForwardForce();
+            isSecondGroundHit = true;
         }
         canJump = false;
     }
 
     private void Jump()
     {
-        Instantiate(
+        GameObject spawnedParticle = Instantiate(
         particlesPrefab,
         particleSpawnPosition.transform.position,
         Quaternion.identity
-);
+        );
+        
+
+        Destroy(spawnedParticle, 1);
 
         int randomJumpForce = UnityEngine.Random.Range(6, 16);
         float staminaCost = 0;
